@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+
+<head>
+<title>jwt login</title>
+</head>
+
+<body>
+<h1>JWT login</h1>
+
+<form>
+    <table>
+        <tr>
+            <td>username:</td>
+            <td><input type="text" id="username" name="username"></td>
+        </tr>
+        <tr>
+            <td>password:</td>
+            <td><input type="password" id="password" name="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button onclick="login(event)" id="login-btn">Login</button></td>
+        </tr>
+    </table>
+    <div>
+        <button onclick="getFlag(event)">Get Flag</button>
+    </div>
+</form>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var savedtoken = "";
+
+    function login(event) {
+        event.preventDefault();
+        data = {
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
+        }
+        axios.post('/login', data).then(function (response) {
+            console.log(response.data);
+            savedtoken = response.data
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+    }
+
+    function getFlag(event) {
+        event.preventDefault();
+        console.log('trigger')
+        if (savedtoken != "") {
+            data = {
+                token: savedtoken
+            }
+            axios.post('/get-flag', data).then(function (response) {
+                console.log(response.data);
+                alert(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }
+
+</script>
+
+</body>
+
+</html>

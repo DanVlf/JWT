@@ -1,0 +1,5 @@
+karel: Ahoj Véno!
+venislav: Nazdar Karle!
+karel: jak je?
+venislav: jo jde to...
+karel: ok
